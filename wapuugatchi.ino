@@ -4,6 +4,9 @@
 
 #define PIN_RESET 255
 #define DC_JUMPER 0
+#define PIN_A D5
+#define PIN_B D6
+#define PIN_C D7
 
 MicroOLED oled( PIN_RESET, DC_JUMPER );
 
@@ -51,7 +54,17 @@ void setup() {
   oled.clear( PAGE );
   oled.drawBitmap( bmpuu );
   oled.display();
+
+  pinMode( PIN_A, INPUT_PULLUP );
+  pinMode( PIN_B, INPUT_PULLUP );
+  pinMode( PIN_C, INPUT_PULLUP );
 }
 
 void loop() {
+  Serial.print( digitalRead( PIN_A ) );
+  Serial.print( " - " );
+  Serial.print( digitalRead( PIN_B ) );
+  Serial.print( " - " );
+  Serial.println( digitalRead( PIN_C ) );
+  delay( 100 );
 }
