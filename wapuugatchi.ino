@@ -1,10 +1,13 @@
 #include <Wire.h>
+#include <ESP8266WiFi.h>
 #include <SFE_MicroOLED.h>
 
 #define PIN_RESET 255
 #define DC_JUMPER 0
 
 MicroOLED oled( PIN_RESET, DC_JUMPER );
+
+String mac = WiFi.macAddress();
 
 uint8_t bmpuu [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -35,6 +38,12 @@ uint8_t bmpuu [] = {
 
 
 void setup() {
+  Serial.begin( 74880 );
+  Serial.println();
+  Serial.println();
+  Serial.println( "Mac: " + mac );
+  Serial.println();
+
   oled.begin();
   oled.clear( ALL );
   oled.display();   
