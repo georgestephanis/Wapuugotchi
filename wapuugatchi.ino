@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <Bounce2.h>
 #include <ESP8266WiFi.h>
 #include <SFE_MicroOLED.h>
 
@@ -12,6 +13,9 @@
 MicroOLED oled( PIN_RESET, DC_JUMPER );
 
 String mac = WiFi.macAddress();
+Bounce bounce_a = Bounce();
+Bounce bounce_b = Bounce();
+Bounce bounce_c = Bounce();
 
 uint8_t bmpuu [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -40,7 +44,6 @@ uint8_t bmpuu [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-
 void setup() {
   Serial.begin( 74880 );
   Serial.println();
@@ -57,15 +60,30 @@ void setup() {
   oled.display();
 
   pinMode( PIN_A, INPUT_PULLUP );
+  bounce_a.attach( PIN_A );
+  bounce_a.interval( 5 );
+
   pinMode( PIN_B, INPUT_PULLUP );
+  bounce_b.attach( PIN_B );
+  bounce_b.interval( 5 );
+
   pinMode( PIN_C, INPUT_PULLUP );
+  bounce_c.attach( PIN_C );
+  bounce_c.interval( 5 );
 }
 
 void loop() {
-  Serial.print( digitalRead( PIN_A ) );
-  Serial.print( " - " );
-  Serial.print( digitalRead( PIN_B ) );
-  Serial.print( " - " );
-  Serial.println( digitalRead( PIN_C ) );
-  delay( 100 );
+  bounce_a.update();
+  bounce_b.update();
+  bounce_c.update();
+
+  if ( bounce_a.fell() ) {
+    Serial.println( "Button A Pressed!" );
+  }
+  if ( bounce_b.fell() ) {
+    Serial.println( "Button B Pressed!" );
+  }
+  if ( bounce_c.fell() ) {
+    Serial.println( "Button C Pressed!" );
+  }
 }
