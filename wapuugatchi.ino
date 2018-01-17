@@ -3,6 +3,8 @@
 #include <ESP8266WiFi.h>
 #include <SFE_MicroOLED.h>
 
+#include "Wapuu.h"
+
 #define PIN_RESET 255
 #define DC_JUMPER 0
 #define PIN_A D5
@@ -13,6 +15,7 @@
 MicroOLED oled( PIN_RESET, DC_JUMPER );
 
 String mac = WiFi.macAddress();
+
 Bounce bounce_a = Bounce();
 Bounce bounce_b = Bounce();
 Bounce bounce_c = Bounce();
@@ -44,117 +47,8 @@ uint8_t bmpuu [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-class Wapuu {
-  private:
+Wapuu wapuu;
 
-    /**
-     * What life stage is the Wapuu at?
-     *  0 : Eggpuu
-     *  1 : Newpuu
-     *  2 : Teenpuu
-     *  3 : Wapuu
-     *  4 : Oldpuu
-     *  5 : Deadpuu
-     */
-    int stage;
-
-    /**
-     * How hungry is Wapuu?
-     *  Range: 0 (full) - 1023 (starving)
-     */
-    int hunger;
-
-    /**
-     * Current health level.
-     *  Range: 0 (dead) - 1023 (max health)
-     */
-    int health;
-
-    /**
-     * Are there poops?
-     */
-    int poops;
-
-  public:
-
-    /**
-     * Initialize a new Wapuu.
-     */
-    Wapuu();
-
-    /**
-     * Increments the `stage` private member variable, unless it's at max already.
-     */
-    int evolve();
-
-    /**
-     * Make the donuts. Increase hunger, age, generate poops, check bounds, etc.
-     * 
-     * Should trigger off a SimpleTimer.
-     */
-    void tick();
-
-    /**
-     * Print a report of the current state to Serial.
-     */
-    void report();
-};
-
-Wapuu::Wapuu() {
-  this->stage = 0;
-  this->hunger = 512;
-  this->health = 1023;
-  this->poops = 0;
-}
-
-int Wapuu::evolve() {
-  if ( this->stage < 5 ) {
-    this->stage++;
-  }
-  return this->stage;
-}
-
-void Wapuu::tick() {
-  int ouchies = 0;
-
-  this->hunger++;
-  if ( this->hunger > 1023 ) {
-    this->hunger = 1023;
-    ouchies++;
-  }
-
-  // Only lose health if there's untidied poops.
-  ouchies += this->poops;
-  
-  // Make a poop every 200 ticks?  May need tweaking.
-  if ( 0 == this->hunger % 200 ) {
-    this->poops++;
-  }
-
-  // Apply all the health dings, or if all is shipshape, heal a point.
-  if ( ouchies > 0 ) {
-    this->health -= ouchies;
-  } else {
-    this->health++;
-  }
-
-  // Bound checking.
-  if ( this->health > 1023 ) {
-    this->health = 1023;
-  } else if ( this->health <= 0 ) {
-    this->health = 0;
-    this->stage = 5;
-  }
-}
-
-void Wapuu::report() {
-  Serial.printf(
-      "Stage: %d | Hunger: %d | Health: %d | Poops: %d",
-      this->stage,
-      this->hunger,
-      this->health,
-      this->poops
-    );
 }
 
 void setup() {
