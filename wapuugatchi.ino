@@ -89,7 +89,7 @@ void setup() {
 
 void loop() {
   timer.run();
-  
+
   bounce_a.update();
   bounce_b.update();
   bounce_c.update();
