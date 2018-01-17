@@ -69,3 +69,31 @@ void Wapuu::report() {
   Serial.println();
 }
 
+void Wapuu::feed() {
+  if ( this->hunger > 100 ) {
+    Serial.println( "Feeding Wapuu some food!" );
+    this->hunger -= 100;
+    this->health += 20;
+
+    if ( this->health > 1023 ) {
+      this->health = 1023;
+    }
+    if ( this->hunger < 0 ) {
+      this->hunger = 0;
+    }
+    this->report();
+  } else {
+    Serial.println( "Wapuu isn't hungry right now." );
+  }
+}
+
+void Wapuu::clean_poop() {
+  if ( this->poops > 0 ) {
+    Serial.println( "Scooping the poops!" );
+  } else {
+    Serial.println( "No poops to scoop." );
+  }
+  this->poops = 0;
+  this->report();
+}
+

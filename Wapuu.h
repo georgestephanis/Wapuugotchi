@@ -68,6 +68,16 @@ class Wapuu {
      * Print a report of the current state to Serial.
      */
     void report();
+
+    /**
+     * Give some food to the Wapuu.
+     */
+    void feed();
+
+    /**
+     * Scoop the poop.
+     */
+    void clean_poop();
 };
 
 #endif
