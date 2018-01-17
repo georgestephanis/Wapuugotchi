@@ -1,3 +1,9 @@
+/*
+ * Wapuugotchi
+ * by George Stephanis
+ * https://github.com/georgestephanis/wapuugotchi
+ */
+
 #include <Wire.h>
 #include <Bounce2.h>
 #include <ESP8266WiFi.h>
