@@ -12,6 +12,7 @@ Wapuu::Wapuu() {
   this->hunger = 512;
   this->health = 1023;
   this->poops = 0;
+  this->age = 0;
 }
 
 int Wapuu::evolve() {
@@ -24,6 +25,8 @@ int Wapuu::evolve() {
 void Wapuu::tick() {
   int ouchies = 0;
 
+  this->age++;
+
   this->hunger++;
   if ( this->hunger > 1023 ) {
     this->hunger = 1023;
@@ -32,9 +35,9 @@ void Wapuu::tick() {
 
   // Only lose health if there's untidied poops.
   ouchies += this->poops;
-  
+
   // Make a poop every 200 ticks?  May need tweaking.
-  if ( 0 == this->hunger % 200 ) {
+  if ( 0 == this->age % 200 ) {
     this->poops++;
   }
 
@@ -56,8 +59,9 @@ void Wapuu::tick() {
 
 void Wapuu::report() {
   Serial.printf(
-      "Stage: %d | Hunger: %d | Health: %d | Poops: %d",
+      "Stage: %d | Age: %d | Hunger: %d | Health: %d | Poops: %d",
       this->stage,
+      this->age,
       this->hunger,
       this->health,
       this->poops

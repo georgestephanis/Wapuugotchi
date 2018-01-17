@@ -40,6 +40,11 @@ class Wapuu {
      */
     int poops;
 
+    /**
+     * The number of ticks that the Wapuu has lived.
+     */
+    int age;
+
   public:
 
     /**
