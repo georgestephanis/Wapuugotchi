@@ -4,6 +4,7 @@
 #include <SFE_MicroOLED.h>
 
 #include "Wapuu.h"
+#include "SimpleTimer.h"
 
 #define PIN_RESET 255
 #define DC_JUMPER 0
@@ -19,6 +20,8 @@ String mac = WiFi.macAddress();
 Bounce bounce_a = Bounce();
 Bounce bounce_b = Bounce();
 Bounce bounce_c = Bounce();
+
+SimpleTimer timer;
 
 uint8_t bmpuu [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -49,6 +52,9 @@ uint8_t bmpuu [] = {
 
 Wapuu wapuu;
 
+void WapuuTick() {
+  wapuu.tick();
+  wapuu.report();
 }
 
 void setup() {
@@ -77,9 +83,13 @@ void setup() {
   pinMode( PIN_C, INPUT_PULLUP );
   bounce_c.attach( PIN_C );
   bounce_c.interval( 5 );
+
+  timer.setInterval( 1000, WapuuTick );
 }
 
 void loop() {
+  timer.run();
+  
   bounce_a.update();
   bounce_b.update();
   bounce_c.update();
