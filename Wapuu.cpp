@@ -62,5 +62,6 @@ void Wapuu::report() {
       this->health,
       this->poops
     );
+  Serial.println();
 }
 
