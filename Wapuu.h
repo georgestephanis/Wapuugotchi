@@ -78,6 +78,15 @@ class Wapuu {
      * Scoop the poop.
      */
     void clean_poop();
+
+    /**
+     * Getter methods for private variables.
+     */
+    int get_stage();
+    int get_age();
+    int get_hunger();
+    int get_health();
+    int get_poops();
 };
 
 #endif

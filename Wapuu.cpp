@@ -95,3 +95,23 @@ void Wapuu::clean_poop() {
   this->poops = 0;
 }
 
+int Wapuu::get_stage() {
+  return this->stage;
+}
+
+int Wapuu::get_age() {
+  return this->age;
+}
+
+int Wapuu::get_hunger() {
+  return this->hunger;
+}
+
+int Wapuu::get_health() {
+  return this->health;
+}
+
+int Wapuu::get_poops() {
+  return this->poops;
+}
+
