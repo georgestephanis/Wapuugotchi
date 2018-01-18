@@ -103,6 +103,7 @@ void loop() {
   if ( bounce_a.fell() ) {
     Serial.println( "Button A Pressed!" );
     wapuu.feed();
+    wapuu.report();
   }
   if ( bounce_b.fell() ) {
     Serial.println( "Button B Pressed!" );
@@ -111,5 +112,6 @@ void loop() {
   if ( bounce_c.fell() ) {
     Serial.println( "Button C Pressed!" );
     wapuu.clean_poop();
+    wapuu.report();
   }
 }

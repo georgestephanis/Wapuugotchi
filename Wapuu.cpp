@@ -81,7 +81,6 @@ void Wapuu::feed() {
     if ( this->hunger < 0 ) {
       this->hunger = 0;
     }
-    this->report();
   } else {
     Serial.println( "Wapuu isn't hungry right now." );
   }
@@ -94,6 +93,5 @@ void Wapuu::clean_poop() {
     Serial.println( "No poops to scoop." );
   }
   this->poops = 0;
-  this->report();
 }
 
