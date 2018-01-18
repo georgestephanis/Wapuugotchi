@@ -67,7 +67,7 @@ void setup() {
   Serial.begin( 74880 );
   Serial.println();
   Serial.println();
-  Serial.println( "Mac: " + mac );
+  Serial.println( "Mac Address: " + mac );
   Serial.println();
 
   oled.begin();
