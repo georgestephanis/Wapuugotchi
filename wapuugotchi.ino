@@ -34,6 +34,51 @@ Wapuu wapuu;
 void WapuuTick() {
   wapuu.tick();
   wapuu.report();
+  showWapuu( wapuu.get_age(), wapuu.get_hunger(), wapuu.get_health(), wapuu.get_poops() );
+}
+
+// Center and print a small title
+// This function is quick and dirty. Only works for titles one
+// line long.
+void printTitle(String title, int font)
+{
+  int middleX = oled.getLCDWidth() / 2;
+  int middleY = oled.getLCDHeight() / 2;
+  
+  oled.clear(PAGE);
+  oled.setFontType(font);
+  // Try to set the cursor in the middle of the screen
+  oled.setCursor(middleX - (oled.getFontWidth() * (title.length()/2)),
+                 middleY - (oled.getFontHeight() / 2));
+  // Print the title:
+  oled.print(title);
+  oled.display();
+  delay(1500);
+  oled.clear(PAGE);
+}
+
+void showWapuu( int age, int hunger, int health, int poops ) {
+  oled.clear( PAGE );
+  oled.setFontType( 0 );
+
+  int line_height = oled.getFontHeight();
+  int cursor_y = 0;
+
+  oled.setCursor( 0, 0 );
+  oled.print( "Age: " + String( age ) );
+
+  oled.setCursor( 0, cursor_y += line_height );
+  oled.print( "Hngr: " + String( hunger ) );
+
+  
+  oled.setCursor( 0, cursor_y += line_height );
+  oled.print( "HP: " + String( health ) );
+
+  
+  oled.setCursor( 0, cursor_y += line_height );
+  oled.print( "Poops: " + String( poops ) );
+
+  oled.display();
 }
 
 void setup() {
@@ -70,17 +115,23 @@ void loop() {
   bounce_c.update();
 
   if ( bounce_a.fell() ) {
+    printTitle( "Feeding!", 0 );
     Serial.println( "Button A Pressed!" );
     wapuu.feed();
     wapuu.report();
+    showWapuu( wapuu.get_age(), wapuu.get_hunger(), wapuu.get_health(), wapuu.get_poops() );
   }
   if ( bounce_b.fell() ) {
+    printTitle( "Menu!", 0 );
     Serial.println( "Button B Pressed!" );
     wapuu.report();
+    showWapuu( wapuu.get_age(), wapuu.get_hunger(), wapuu.get_health(), wapuu.get_poops() );
   }
   if ( bounce_c.fell() ) {
+    printTitle( "Cleaning!", 0 );
     Serial.println( "Button C Pressed!" );
     wapuu.clean_poop();
     wapuu.report();
+    showWapuu( wapuu.get_age(), wapuu.get_hunger(), wapuu.get_health(), wapuu.get_poops() );
   }
 }
