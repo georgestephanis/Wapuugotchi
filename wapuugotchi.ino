@@ -72,8 +72,7 @@ void setup() {
 
   oled.begin();
   oled.clear( ALL );
-  oled.display();   
-  delay( 1000 );
+  oled.display();
   oled.clear( PAGE );
   oled.drawBitmap( bmpuu );
   oled.display();
