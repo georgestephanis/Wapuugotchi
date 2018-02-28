@@ -9196,9 +9196,9 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/22049b.pdf</description>
 <net name="N$12" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="VI1"/>
-<pinref part="S1" gate="G$1" pin="4"/>
-<wire x1="15.24" y1="60.96" x2="0" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="0" y1="60.96" x2="0" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="S1" gate="G$1" pin="3"/>
+<wire x1="15.24" y1="60.96" x2="15.24" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="55.88" x2="12.7" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
