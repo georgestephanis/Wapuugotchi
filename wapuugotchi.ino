@@ -14,9 +14,9 @@
 
 #define PIN_RESET 255
 #define DC_JUMPER 0
-#define PIN_A D5
+#define PIN_A D7
 #define PIN_B D6
-#define PIN_C D7
+#define PIN_C D5
 #define PIN_SPEAKER D8
 
 MicroOLED oled( PIN_RESET, DC_JUMPER );
